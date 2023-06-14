@@ -1,26 +1,54 @@
-import React from 'react';
-import logo from './logo.svg';
+import { Header } from './Components/Header/Header';
 import './App.css';
+import { Photos } from './Components/Photos/Photos';
+import { Nav } from './Components/Navigation/Nav'
+import { Route, Routes } from 'react-router-dom';
+import { Data } from './Components/Profile/Profile';
+import { Welcome } from './Components/Welcome/Welcome';
+import { useState } from 'react';
+import { User } from './models/photos';
+
 
 function App() {
+  const [userId, setUserId] = useState(0);
+  const [user, setUser] = useState({} as User)
+
+  /*
+  fetch("/api/v1/photos", {
+    method: "POST",
+    body: JSON.stringify({ user_id: 1 })
+  }).then(response => response.text()).then(response => console.log(response));
+
+  */
+
+  const authorizeCallback = (user: User) => {
+    setUser(user)
+    setUserId(user.ID);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {userId && (
+        <>
+          <Header user={user} />
+          <Nav />
+        </>
+      )}
+      <div className='hello'>
+        <Routes>
+          <Route path='/' element={<Welcome authorize={authorizeCallback} />}></Route></Routes></div>
+      <div className='wrapper'>
+
+        <Routes>
+          <Route path='/content' element={<Photos url='/api/v1/photos' user_id={userId} />}></Route>
+          <Route path='/profile' element={<Data user={user} updateUser={setUser} />}></Route>
+        </Routes>
+      </div>
     </div>
   );
 }
 
 export default App;
+
+
+// curl -i -X GET http://insta-test.mas3.co/api/v1/photos

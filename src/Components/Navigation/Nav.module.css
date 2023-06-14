@@ -1,0 +1,11 @@
+.navigation{
+    border: 1px solid grey;
+    grid-area: n;
+    background-color: rgb(101, 99, 99);
+}
+.navigation a{
+    color: gold;
+    text-decoration: none;
+    font-size: 20px;
+    margin: 15px 0 0 30px;
+}

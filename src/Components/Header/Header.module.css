@@ -1,0 +1,17 @@
+.header{
+    font-size: 24px;
+    font-weight: 600;
+    background-color: darkgrey;
+    grid-area: h;
+    display: grid;
+    grid-template-rows: 60px 1fr;
+    grid-template-columns: 10fr 2fr;
+}
+.header_label {
+    margin: 15px 0 10px 30px;
+    color: rgb(112, 97, 59)
+}
+.s.header_messanger a {
+    width: 30px;
+    height: 30px;
+}
